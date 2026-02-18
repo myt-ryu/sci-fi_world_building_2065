@@ -1,8 +1,39 @@
 @import "tailwindcss";
 
+@layer theme {
+  :root {
+    --ink-900: #1f4f65;
+    --ink-700: #45788d;
+  }
+}
+
 @layer base {
-  /* Customize your base styles here */
   html {
-    font-family: system-ui, sans-serif;
+    font-family: "Avenir Next", "Hiragino Kaku Gothic ProN", "Yu Gothic",
+      "Noto Sans JP", sans-serif;
+    color: var(--ink-900);
+    background: linear-gradient(180deg, #eaf8fd 0%, #f4fffd 58%, #e9f8f3 100%);
+  }
+
+  body {
+    min-height: 100vh;
+    color: var(--ink-900);
+    background: transparent;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: "Futura", "Avenir Next", "Hiragino Kaku Gothic ProN",
+      "Yu Gothic", sans-serif;
+    letter-spacing: 0.01em;
+  }
+
+  code,
+  pre {
+    font-family: "JetBrains Mono", "SFMono-Regular", "Noto Sans Mono CJK JP",
+      Menlo, monospace;
   }
 }

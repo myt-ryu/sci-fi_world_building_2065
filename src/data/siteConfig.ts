@@ -6,6 +6,6 @@ export interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
     title: "Sci-Fi World Building 2065",
-    description: "A modern web site built with React, Vite, and Tailwind CSS v4.",
+    description: "多層現実が重なり合う2065年の社会と、人々の物語を想像する世界設定。",
     author: "Miyata",
 };

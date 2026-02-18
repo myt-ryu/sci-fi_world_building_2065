@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Environment variables (APIキーなど機密情報)
+.env
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
