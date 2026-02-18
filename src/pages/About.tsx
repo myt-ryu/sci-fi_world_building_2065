@@ -1,22 +1,20 @@
-import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { SiteFooter } from '../components/common/SiteFooter';
+import { PublicPageLayout } from '../components/layouts/PublicPageLayout';
 
 export const About = () => {
-    const { language, setLanguage, t } = useLanguage();
+    const { t } = useLanguage();
 
     return (
-        <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#d9f5fc_0%,_#f3feff_42%,_#edf9f5_100%)] text-[#1f4f65] selection:bg-[#ffd1b4]/70">
-            <div className="fixed top-4 right-4 z-50">
-                <button
-                    onClick={() => setLanguage(language === 'ja' ? 'en' : 'ja')}
-                    className="px-3 py-1.5 text-xs font-mono rounded-xl border border-[#9fd6e6] bg-white/85 backdrop-blur-md hover:bg-[#e9f8fd] text-[#477387] hover:text-[#1f4f65] transition-colors shadow-lg"
-                >
-                    {language === 'ja' ? 'EN' : 'JA'}
-                </button>
-            </div>
-
-            <main className="max-w-5xl mx-auto px-6 lg:px-8 py-20 space-y-10">
+        <PublicPageLayout
+            quickLinks={[
+                { to: '/', label: t('トップへ戻る', 'Back to Home') },
+                { to: '/wiki', label: t('世界設定を見る', 'Open World Settings') },
+                { to: '/use-cases', label: t('活用提案を見る', 'Use Cases') },
+            ]}
+            quickLinksContainerClassName="max-w-5xl"
+        >
+            <main className="flex-1 w-full max-w-5xl mx-auto px-6 lg:px-8 pt-10 pb-20 space-y-10">
                 <header className="text-center">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 border border-[#a6ddea] text-[#3d7e95] text-sm mb-6">
                         <span className="w-2 h-2 rounded-full bg-[#6dc6dd] animate-pulse"></span>
@@ -29,21 +27,6 @@ export const About = () => {
                         {t('このプロジェクトの背景と構成をまとめるページです。', 'This page summarizes the background and structure of the project.')}
                     </p>
                 </header>
-
-                <div className="flex flex-wrap justify-center gap-3">
-                    <Link
-                        to="/"
-                        className="px-4 py-2 rounded-lg border border-[#a6ddea] bg-white/80 hover:bg-[#ebf9fd] text-[#2e6b84] text-sm font-medium transition-colors"
-                    >
-                        {t('トップへ戻る', 'Back to Home')}
-                    </Link>
-                    <Link
-                        to="/wiki"
-                        className="px-4 py-2 rounded-lg border border-[#a6ddea] bg-white/80 hover:bg-[#ebf9fd] text-[#2e6b84] text-sm font-medium transition-colors"
-                    >
-                        {t('世界設定を見る', 'Open World Settings')}
-                    </Link>
-                </div>
 
                 <section className="space-y-5">
                     <article className="rounded-2xl border border-[#b7e4ee] bg-white/85 p-6 shadow-[0_14px_32px_rgba(111,184,209,0.16)]">
@@ -83,7 +66,7 @@ export const About = () => {
                     </article>
                 </section>
             </main>
-            <SiteFooter />
-        </div>
+            <SiteFooter className="mt-auto" />
+        </PublicPageLayout>
     );
 };

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { useWorldSearch, type SearchResult } from './useWorldSearch';
-import { askGemini } from './geminiService';
+import { askAI } from './aiService';
 import { Link } from 'react-router-dom';
 
 interface Message {
@@ -93,15 +93,15 @@ export const ChatWidget = () => {
         setIsLoading(true);
 
         try {
-            // Gemini APIを呼び出す
-            const geminiResult = await askGemini(query, language);
+            // AI APIを呼び出す
+            const aiResult = await askAI(query, language);
 
             let aiContent: React.ReactNode;
 
-            if (!geminiResult.isError && !geminiResult.isRateLimited && geminiResult.text) {
+            if (!aiResult.isError && !aiResult.isRateLimited && aiResult.text) {
                 // AI回答成功
-                aiContent = geminiResult.text;
-            } else if (geminiResult.isRateLimited) {
+                aiContent = aiResult.text;
+            } else if (aiResult.isRateLimited) {
                 // 無料枠上限超過 → キーワード検索にフォールバック
                 const results = search(query);
                 aiContent = (
@@ -117,7 +117,7 @@ export const ChatWidget = () => {
             } else {
                 // APIキー未設定またはその他エラー → キーワード検索にフォールバック
                 const results = search(query);
-                const reason = formatErrorReason(geminiResult.errorReason);
+                const reason = formatErrorReason(aiResult.errorReason);
                 aiContent = (
                     <div className="space-y-2">
                         <p className="text-xs text-[#9ab5c0] italic">
@@ -190,6 +190,15 @@ export const ChatWidget = () => {
                         )}
 
                         <div ref={messagesEndRef} />
+                    </div>
+
+                    {/* Disclaimer */}
+                    <div className="px-3 py-1 bg-[#edf9fd] border-t border-[#d8eef5]">
+                        <p className="text-[10px] text-[#7d9cab] text-center leading-tight">
+                            {language === 'ja'
+                                ? '※AIは間違えることがあります。設定の詳細はWikiもご確認ください。'
+                                : '※AI can make mistakes. Please also check the Wiki for details.'}
+                        </p>
                     </div>
 
                     {/* Input */}

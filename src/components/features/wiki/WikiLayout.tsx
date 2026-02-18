@@ -2,25 +2,23 @@ import { Link, useParams } from 'react-router-dom';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { wikiCategories } from '../../../data/wiki/categories';
 import { SiteFooter } from '../../common/SiteFooter';
+import { LanguageToggleButton } from '../../common/LanguageToggleButton';
 
 export const WikiLayout = ({ children }: { children: React.ReactNode }) => {
-    const { language, setLanguage } = useLanguage();
+    const { language } = useLanguage();
     const { categoryId } = useParams();
 
     return (
         <div className="min-h-screen bg-[linear-gradient(180deg,_#eefbfe_0%,_#f2fffb_100%)] text-[#1f4f65] flex">
+            <div className="fixed top-4 right-4 z-50">
+                <LanguageToggleButton />
+            </div>
             {/* Sidebar */}
             <aside className="w-64 bg-[#f8feff]/90 border-r border-[#b8e4ef] flex-shrink-0 sticky top-0 h-screen overflow-y-auto backdrop-blur-sm">
-                <div className="p-6 border-b border-[#c7e9f2] flex justify-between items-center">
+                <div className="p-6 border-b border-[#c7e9f2]">
                     <Link to="/" className="text-xl font-bold bg-gradient-to-r from-[#58b2d4] to-[#ff9f7a] bg-clip-text text-transparent">
                         {language === 'ja' ? '2065 世界設定' : '2065 World Settings'}
                     </Link>
-                    <button
-                        onClick={() => setLanguage(language === 'ja' ? 'en' : 'ja')}
-                        className="text-xs font-mono px-2 py-1 rounded-lg border border-[#a8dbe9] hover:bg-[#e8f8fd] text-[#4f8094]"
-                    >
-                        {language.toUpperCase()}
-                    </button>
                 </div>
                 <nav className="p-4 space-y-1">
                     {wikiCategories.map((cat) => (
@@ -39,11 +37,11 @@ export const WikiLayout = ({ children }: { children: React.ReactNode }) => {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-y-auto">
+            <main className="flex-1 min-h-screen flex flex-col overflow-y-auto">
                 <div className="max-w-4xl mx-auto px-8 py-12">
                     {children}
                 </div>
-                <SiteFooter />
+                <SiteFooter className="mt-auto" />
             </main>
         </div>
     );

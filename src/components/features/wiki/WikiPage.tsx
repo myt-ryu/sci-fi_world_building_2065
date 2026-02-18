@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -12,6 +13,229 @@ const sectionMetaPattern = /^（.+）$/;
 const topicPattern = /^【.+】$/;
 const markerPattern = /^■.+/;
 const footerPattern = /^(SCI-FI PROTOTYPING LAB|© Condé Nast Japan)$/;
+type ReadingMode = 'original' | 'easy';
+
+const headingBlockPattern = /^#{1,6}\s/;
+const listBlockPattern = /^[-*>]\s/;
+const h3BlockPattern = /^###\s/;
+const iobHeadingPattern = /^###\s*IoB\b/i;
+const cyberneticAvatarHeadingPattern = /^###\s*サイバネティックアバター/;
+const sentenceEndPattern = /[。！？!?」』）]$/;
+const textStartPattern = /^[ぁ-んァ-ヶ一-龠a-zA-Z0-9「『（]/;
+const iobEasyBody = [
+    '人間の脳をインターネットのようにつなぐ新しい技術があります。',
+    'この技術では、考えていることや感じていることを、直接ほかの人と共有できます。言葉や画面を使わなくても、脳と脳で情報をやり取りする「ブレイン・トゥ・ブレイン通信」が可能になります。',
+    'この仕組みを使うと、人はそれぞれ自分専用の「見え方の設定」を持つことができます。たとえば、同じ景色を見ていても、人によって強調される情報や感じ方が違う、そんな「自分だけの現実体験」が生まれます。',
+    'また、この脳のネットワークは、人間の知識や知恵を集めて保存する場所にもなっています。',
+    '過去の偉人や、すでに亡くなった人の考え方や経験をデータとして残し、未来の人たちが学べるようにする――これを「未来遺産」と呼びます。',
+    'このような脳のネットワークは、社会のあらゆる場面で使われるようになり、人と人のコミュニケーションの仕方や、みんなで物事を決める方法そのものを、大きく変えていきました。',
+].join('\n');
+const cyberneticAvatarEasyBody = [
+    '自分の代わりとなる分身（アバター）を、現実の世界や仮想空間で遠くから操作できる技術があります。',
+    'このアバターは、ロボットの体だったり、仮想空間のキャラクターだったりしますが、人の考えや動きをほぼ同時に反映して動きます。',
+    'この技術を使えば、ひとりの人が同時にいくつもの仕事をしたり、離れた場所にいながら作業を行ったりすることができます。たとえば、自宅にいながら遠隔地の仕事をしたり、危険な場所に行かずに安全な場所から作業を進めることが可能になります。',
+    'そのため、働く人が足りないという問題を助けたり、災害現場や宇宙、深海など人が行きにくい環境での作業、さらに介護や医療のサポートなど、さまざまな分野での活用が期待されています。',
+    '特に、高齢者や身体に障害があり、外に出て働くことが難しい人でも、アバターを通して社会に参加できるようになる点は、大きな変化をもたらします。',
+    'この技術は、人口が少ない地域でのサービス提供や、社会全体の人手不足を支える方法としても注目されています。',
+    'このようなサイバネティックアバターを実現するためには、いくつかの重要な技術が必要だと考えられています。',
+].join('\n');
+
+const keyTermGlossary: Array<{ term: string; meaning: string }> = [
+    {
+        term: 'サイバネティックアバター',
+        meaning: 'ネット越しに動かす分身です。ロボットや仮想の体として使います。',
+    },
+    {
+        term: 'IoB',
+        meaning: '脳をネットワークにつなぐ基盤技術です。',
+    },
+    {
+        term: 'BMI',
+        meaning: '脳と機械をつなぐ技術です。',
+    },
+    {
+        term: 'パーソナルリアリティ',
+        meaning: '人ごとに見える情報や景色が変わる状態です。',
+    },
+    {
+        term: '多層現実',
+        meaning: '現実の上に複数の情報レイヤーが重なる社会です。',
+    },
+    {
+        term: '共鳴圏',
+        meaning: '人と人の思考や感情をつなぐ集合的なネットワークです。',
+    },
+    {
+        term: '共鳴クラスタ',
+        meaning: '共通の関心でつながるコミュニティです。',
+    },
+    {
+        term: 'インプラント',
+        meaning: '体の中に入れて使う機器です。',
+    },
+];
+
+const easyPhraseReplacements: Array<[RegExp, string]> = [
+    [/である。/g, 'です。'],
+    [/である/g, 'です'],
+    [/となっている。/g, 'になっています。'],
+    [/となっている/g, 'になっています'],
+    [/可能となっている/g, 'できるようになっています'],
+    [/可能となる/g, 'できるようになる'],
+    [/可能にし/g, 'できるようにし'],
+    [/可能である/g, '可能です'],
+    [/台頭している/g, '広がっている'],
+    [/希薄化/g, '弱まり'],
+    [/浸透し/g, '広まり'],
+    [/寄与しうる/g, '役立てる'],
+    [/寄与する/g, '役立つ'],
+    [/一方で/g, 'ただし'],
+    [/おこなう/g, '行う'],
+    [/おこない/g, '行い'],
+    [/おこなわ/g, '行わ'],
+    [/在り方/g, 'あり方'],
+];
+
+const applyEasyReplacements = (text: string): string => {
+    let result = text;
+    for (const [pattern, replacement] of easyPhraseReplacements) {
+        result = result.replace(pattern, replacement);
+    }
+    return result;
+};
+
+const canMergeBrokenBlocks = (previous: string, next: string): boolean => {
+    if (!previous || !next) return false;
+    if (headingBlockPattern.test(previous) || headingBlockPattern.test(next)) return false;
+    if (listBlockPattern.test(previous) || listBlockPattern.test(next)) return false;
+    if (sentenceEndPattern.test(previous)) return false;
+    return textStartPattern.test(next);
+};
+
+const normalizeAndMergeBlocks = (markdown: string): string[] => {
+    const normalized = markdown
+        .normalize('NFKC')
+        .replace(/\r\n?/g, '\n')
+        .replace(/[ \t]+\n/g, '\n')
+        .replace(/[ \t]{2,}/g, ' ');
+
+    const roughBlocks = normalized
+        .split(/\n{2,}/)
+        .map((block) =>
+            block
+                .split('\n')
+                .map((line) => line.trim())
+                .filter(Boolean)
+                .join(' ')
+                .replace(/\s+/g, ' ')
+                .trim(),
+        )
+        .filter(Boolean);
+
+    const mergedBlocks: string[] = [];
+    for (const block of roughBlocks) {
+        if (mergedBlocks.length === 0) {
+            mergedBlocks.push(block);
+            continue;
+        }
+
+        const previous = mergedBlocks[mergedBlocks.length - 1];
+        if (canMergeBrokenBlocks(previous, block)) {
+            mergedBlocks[mergedBlocks.length - 1] = `${previous}${block}`;
+            continue;
+        }
+
+        mergedBlocks.push(block);
+    }
+
+    return mergedBlocks;
+};
+
+const buildEasyGlossary = (text: string): string => {
+    const matchedTerms = keyTermGlossary
+        .filter(({ term }) => text.includes(term))
+        .slice(0, 6);
+
+    if (matchedTerms.length === 0) return '';
+
+    const lines = matchedTerms.map(({ term, meaning }) => `- **${term}**: ${meaning}`);
+    return ['##### 用語メモ', ...lines].join('\n');
+};
+
+const applyEasySectionOverrides = (blocks: string[]): string[] => {
+    const overridden: string[] = [];
+
+    for (let i = 0; i < blocks.length; i++) {
+        const block = blocks[i];
+
+        if (iobHeadingPattern.test(block)) {
+            overridden.push(`${block}\n${iobEasyBody}`);
+            i += 1;
+            while (i < blocks.length && !h3BlockPattern.test(blocks[i])) {
+                i += 1;
+            }
+            i -= 1;
+            continue;
+        }
+
+        if (cyberneticAvatarHeadingPattern.test(block)) {
+            overridden.push(`${block}\n${cyberneticAvatarEasyBody}`);
+            const nextBlock = blocks[i + 1];
+            if (typeof nextBlock === 'string' && !headingBlockPattern.test(nextBlock)) {
+                i += 1;
+            }
+            continue;
+        }
+
+        overridden.push(block);
+    }
+
+    return overridden;
+};
+
+const toEasyJapaneseMarkdown = (markdown: string): string => {
+    const mergedBlocks = normalizeAndMergeBlocks(markdown);
+    const simplifiedBlocks = mergedBlocks.map((block) => {
+        if (headingBlockPattern.test(block)) {
+            return block;
+        }
+        return applyEasyReplacements(block);
+    });
+
+    const overriddenBlocks = applyEasySectionOverrides(simplifiedBlocks);
+    const bodyWithOverrides = overriddenBlocks.join('\n\n').replace(/\n{3,}/g, '\n\n');
+    const glossary = buildEasyGlossary(bodyWithOverrides);
+
+    if (!glossary) {
+        return bodyWithOverrides;
+    }
+    return `${glossary}\n\n${bodyWithOverrides}`;
+};
+
+const internalLinkMap: Record<string, string> = {
+    'IoB': '/wiki/technology',
+    'サイバネティックアバター': '/wiki/technology',
+    'サイバネティック・アバター': '/wiki/technology',
+    'BMI': '/wiki/technology',
+    'インプラント': '/wiki/technology',
+    'パーソナルリアリティ': '/wiki/society',
+    '多層現実': '/wiki/society',
+    '共鳴圏': '/wiki/society',
+    '共鳴クラスタ': '/wiki/society',
+    '未来遺産': '/wiki/technology',
+};
+
+const applyInternalLinks = (markdown: string): string => {
+    let result = markdown;
+    const terms = Object.keys(internalLinkMap).sort((a, b) => b.length - a.length);
+
+    for (const term of terms) {
+        // すでにリンクになっているものや見出しの中のものは置換から除外
+        const regex = new RegExp(`(?<!\\[|\\(|\\/)${term}(?!\\]|\\))`, 'g');
+        result = result.replace(regex, `[${term}](${internalLinkMap[term]})`);
+    }
+    return result;
+};
 
 const formatJaArticleContent = (raw: string): string => {
     const rawLines = raw
@@ -112,8 +336,33 @@ const formatJaArticleContent = (raw: string): string => {
 export const WikiPage = () => {
     const { categoryId } = useParams();
     const { language } = useLanguage();
+    const [readingMode, setReadingMode] = useState<ReadingMode>('original');
 
     const articles = categoryId ? getArticlesByCategory(categoryId) : [];
+    const renderedArticles = useMemo(
+        () =>
+            articles.map((article) => {
+                const originalContent = language === 'ja'
+                    ? formatJaArticleContent(article.content.ja)
+                    : article.content.en;
+
+                const content = language === 'ja' && readingMode === 'easy'
+                    ? toEasyJapaneseMarkdown(originalContent)
+                    : originalContent;
+
+                const contentWithLinks = applyInternalLinks(content);
+
+                return { article, content: contentWithLinks };
+            }),
+        [articles, language, readingMode],
+    );
+
+    useEffect(() => {
+        if (language !== 'ja' && readingMode !== 'original') {
+            setReadingMode('original');
+        }
+    }, [language, readingMode]);
+
     const topGraphicSection = (
         <section>
             <a
@@ -156,7 +405,33 @@ export const WikiPage = () => {
         <WikiLayout>
             <div className="space-y-12">
                 {topGraphicSection}
-                {articles.map((article) => (
+                {language === 'ja' && articles.length > 0 && (
+                    <div className="flex justify-end">
+                        <div className="inline-flex items-center gap-1 rounded-xl border border-[#9fd5e5] bg-white/90 p-1 shadow-sm">
+                            <button
+                                type="button"
+                                onClick={() => setReadingMode('original')}
+                                className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${readingMode === 'original'
+                                    ? 'bg-[#58b2d4] text-white'
+                                    : 'text-[#3f6f83] hover:bg-[#edf9fd]'
+                                    }`}
+                            >
+                                原文
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setReadingMode('easy')}
+                                className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${readingMode === 'easy'
+                                    ? 'bg-[#58b2d4] text-white'
+                                    : 'text-[#3f6f83] hover:bg-[#edf9fd]'
+                                    }`}
+                            >
+                                やさしい説明
+                            </button>
+                        </div>
+                    </div>
+                )}
+                {renderedArticles.map(({ article, content }) => (
                     <article key={article.id} className="prose prose-slate prose-lg max-w-none">
                         <h1 className="text-3xl font-bold text-[#58b2d4] mb-6 pb-2 border-b border-[#c3e7f1]">
                             {language === 'ja' ? article.title.ja : article.title.en}
@@ -216,11 +491,21 @@ export const WikiPage = () => {
                                 li: ({ node, ...props }) => (
                                     <li className="leading-relaxed" {...props} />
                                 ),
+                                a: ({ node, ...props }) => {
+                                    const isInternal = props.href?.startsWith('/');
+                                    return (
+                                        <a
+                                            className={`${isInternal
+                                                    ? 'text-[#58b2d4] hover:text-[#4da8cb] font-semibold decoration-[#9fd5e5] decoration-2 underline-offset-4 underline'
+                                                    : 'text-[#ff9d79] hover:text-[#eb8b66] underline'
+                                                } transition-colors pointer-events-auto`}
+                                            {...props}
+                                        />
+                                    );
+                                },
                             }}
                         >
-                            {language === 'ja'
-                                ? formatJaArticleContent(article.content.ja)
-                                : article.content.en}
+                            {content}
                         </Markdown>
                     </article>
                 ))}

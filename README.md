@@ -1,73 +1,61 @@
-# React + TypeScript + Vite
+# Sci-Fi World Building 2065
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite + Tailwind CSS v4 で作成した 2065 年世界設定サイトです。
 
-Currently, two official plugins are available:
+## Local Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Build
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
+npm run preview
 ```
+
+## AI Chat Architecture
+
+- クライアントは `src/components/features/ai-guide/aiService.ts` から `/api/chat` を呼びます。
+- AI プロバイダ呼び出しは `api/chat.ts`（Vercel Functions）で実行します。
+- API キーはサーバー側環境変数のみで扱います（ブラウザに公開しない）。
+
+## Environment Variables
+
+`.env.example` をコピーして `.env` を作成してください。
+
+```bash
+cp .env.example .env
+```
+
+Required:
+
+- `OPENAI_API_KEY`
+- `OPENAI_MODEL` (default: `gpt-4.1-mini`)
+
+Optional (local dev only):
+
+- `VITE_GEMINI_API_KEY`
+- `VITE_GEMINI_MODEL` (default: `gemini-2.5-flash`)
+
+When `npm run dev` and `VITE_GEMINI_API_KEY` is set, the chat uses Gemini directly from the browser for local testing.
+Production deployment continues to use `/api/chat` (server-side OpenAI).
+
+## Deploy (Vercel)
+
+1. GitHub に push
+2. Vercel でプロジェクトを Import
+3. Build Command: `npm run build`
+4. Output Directory: `dist`
+5. Vercel の Environment Variables に以下を設定
+   - `OPENAI_API_KEY`
+   - `OPENAI_MODEL`
+6. Deploy
+
+## Security Notes
+
+- `VITE_` プレフィックスの環境変数はブラウザへ埋め込まれます。
+- API キーは必ず `VITE_` なしでサーバー側のみで利用してください。
+- もしキーを公開してしまった場合は、即時ローテーション（再発行）してください。

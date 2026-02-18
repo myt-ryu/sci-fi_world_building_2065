@@ -25,6 +25,9 @@ export const SiteFooter = ({ className = '' }: SiteFooterProps) => {
                     <Link to="/about" className="hover:text-[#205a73] transition-colors">
                         {t('About', 'About')}
                     </Link>
+                    <Link to="/use-cases" className="hover:text-[#205a73] transition-colors">
+                        {t('活用提案', 'Use Cases')}
+                    </Link>
                 </nav>
             </div>
         </footer>

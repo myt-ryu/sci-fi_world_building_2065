@@ -5,26 +5,17 @@ import { topLineText } from '../data/world/topLine';
 import { useLanguage } from '../contexts/LanguageContext';
 import mainVisual from '../assets/images/world/250831_0.png';
 import { SiteFooter } from '../components/common/SiteFooter';
+import { PublicPageLayout } from '../components/layouts/PublicPageLayout';
 
 export const Home = () => {
-    const { language, setLanguage, t } = useLanguage();
+    const { language, t } = useLanguage();
     const now = new Date();
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
     const systemOnlineDate = `2065.${month}.${day}`;
 
     return (
-        <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#d9f5fc_0%,_#f3feff_42%,_#edf9f5_100%)] text-[#1f4f65] selection:bg-[#ffd1b4]/70">
-            {/* Language Toggle - Fixed Top Right */}
-            <div className="fixed top-4 right-4 z-50">
-                <button
-                    onClick={() => setLanguage(language === 'ja' ? 'en' : 'ja')}
-                    className="px-3 py-1.5 text-xs font-mono rounded-xl border border-[#9fd6e6] bg-white/85 backdrop-blur-md hover:bg-[#e9f8fd] text-[#477387] hover:text-[#1f4f65] transition-colors shadow-lg"
-                >
-                    {language === 'ja' ? 'EN' : 'JA'}
-                </button>
-            </div>
-
+        <PublicPageLayout>
             {/* Hero Section */}
             <header className="relative overflow-hidden border-b border-[#b9e5ef]">
                 <div className="absolute -top-24 left-1/4 w-[460px] h-[460px] bg-[#9fe9de]/40 blur-[140px] rounded-full pointer-events-none"></div>
@@ -176,7 +167,7 @@ export const Home = () => {
                 </section>
             )}
 
-            <SiteFooter />
-        </div>
+            <SiteFooter className="mt-auto" />
+        </PublicPageLayout>
     );
 };
