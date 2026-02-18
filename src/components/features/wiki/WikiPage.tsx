@@ -213,28 +213,44 @@ const toEasyJapaneseMarkdown = (markdown: string): string => {
 };
 
 const internalLinkMap: Record<string, string> = {
-    'IoB': '/wiki/technology',
-    'サイバネティックアバター': '/wiki/technology',
-    'サイバネティック・アバター': '/wiki/technology',
-    'BMI': '/wiki/technology',
-    'インプラント': '/wiki/technology',
-    'パーソナルリアリティ': '/wiki/society',
-    '多層現実': '/wiki/society',
-    '共鳴圏': '/wiki/society',
-    '共鳴クラスタ': '/wiki/society',
-    '未来遺産': '/wiki/technology',
+    'IoB': '/wiki/technology#iob',
+    'サイバネティックアバター': '/wiki/technology#cybernetic-avatar',
+    'サイバネティック・アバター': '/wiki/technology#cybernetic-avatar',
+    'BMI': '/wiki/technology#bmi',
+    'インプラント': '/wiki/technology#bmi',
+    'パーソナルリアリティ': '/wiki/society#personal-reality',
+    '多層現実': '/wiki/society#personal-reality',
+    '共鳴圏': '/wiki/society#resonance-sphere',
+    '共鳴クラスタ': '/wiki/society#resonance-cluster',
+    '未来遺産': '/wiki/technology#iob',
 };
 
-const applyInternalLinks = (markdown: string): string => {
-    let result = markdown;
+const applyInternalLinks = (markdown: string, articleTitle?: string): string => {
+    const lines = markdown.split('\n');
     const terms = Object.keys(internalLinkMap).sort((a, b) => b.length - a.length);
+    let currentSectionTitle = articleTitle || '';
 
-    for (const term of terms) {
-        // すでにリンクになっているものや見出しの中のものは置換から除外
-        const regex = new RegExp(`(?<!\\[|\\(|\\/)${term}(?!\\]|\\))`, 'g');
-        result = result.replace(regex, `[${term}](${internalLinkMap[term]})`);
-    }
-    return result;
+    const processedLines = lines.map((line) => {
+        const trimmed = line.trim();
+        // 見出し行（#）は置換せず、セクションタイトルを更新する
+        if (trimmed.startsWith('#')) {
+            currentSectionTitle = trimmed.replace(/^#+\s*|【|】/g, '').trim();
+            return line;
+        }
+
+        let newLine = line;
+        for (const term of terms) {
+            // 現在のセクションタイトル（見出し）と同じ用語はリンクしない
+            if (currentSectionTitle && term === currentSectionTitle) continue;
+
+            const target = internalLinkMap[term];
+            const regex = new RegExp(`(?<!\\[|\\(|\\/)${term}(?!\\]|\\))`, 'g');
+            newLine = newLine.replace(regex, `[${term}](${target})`);
+        }
+        return newLine;
+    });
+
+    return processedLines.join('\n');
 };
 
 const formatJaArticleContent = (raw: string): string => {
@@ -350,7 +366,8 @@ export const WikiPage = () => {
                     ? toEasyJapaneseMarkdown(originalContent)
                     : originalContent;
 
-                const contentWithLinks = applyInternalLinks(content);
+                const excludeTerm = article.title.ja.replace(/【|】|^\d+\.\s*/g, '').trim();
+                const contentWithLinks = applyInternalLinks(content, excludeTerm);
 
                 return { article, content: contentWithLinks };
             }),
@@ -440,26 +457,43 @@ export const WikiPage = () => {
                             remarkPlugins={[remarkGfm]}
                             components={{
                                 h2: ({ node, children, ...props }) => {
-                                    const processedChildren = typeof children === 'string'
-                                        ? children.replace(/【|】/g, '')
-                                        : Array.isArray(children)
-                                            ? children.map((child) => typeof child === 'string' ? child.replace(/【|】/g, '') : child)
-                                            : children;
+                                    const rawText = Array.isArray(children) ? children.join('') : String(children || '');
+                                    const processedText = rawText.replace(/【|】/g, '');
+                                    const id = processedText
+                                        .toLowerCase()
+                                        .replace(/[^\w\sぁ-んァ-ヶ一-龠ー]/g, '')
+                                        .replace(/\s+/g, '-');
+
                                     return (
-                                        <h2 className="text-2xl font-bold text-[#1f5f7c] mt-12 mb-6 pl-4 border-l-4 border-[#58b2d4] bg-[#f0f9fc] py-2 rounded-r-lg" {...props}>
-                                            {processedChildren}
+                                        <h2 id={id} className="text-2xl font-bold text-[#1f5f7c] mt-12 mb-6 pl-4 border-l-4 border-[#58b2d4] bg-[#f0f9fc] py-2 rounded-r-lg" {...props}>
+                                            {processedText}
                                         </h2>
                                     );
                                 },
                                 h3: ({ node, children, ...props }) => {
-                                    const processedChildren = typeof children === 'string'
-                                        ? children.replace(/【|】/g, '')
-                                        : Array.isArray(children)
-                                            ? children.map((child) => typeof child === 'string' ? child.replace(/【|】/g, '') : child)
-                                            : children;
+                                    const rawText = Array.isArray(children) ? children.join('') : String(children || '');
+                                    const processedText = rawText.replace(/【|】/g, '');
+                                    const id = processedText
+                                        .toLowerCase()
+                                        .replace(/[^\w\sぁ-んァ-ヶ一-龠ー]/g, '')
+                                        .replace(/\s+/g, '-');
+
+                                    const slugMap: Record<string, string> = {
+                                        'iob': 'iob',
+                                        'internet-of-brains': 'iob',
+                                        'サイバネティックアバター': 'cybernetic-avatar',
+                                        'サイバネティック・アバター': 'cybernetic-avatar',
+                                        '生体センサーと-bmi': 'bmi',
+                                        '多層現実とパーソナルリアリティ': 'personal-reality',
+                                        '共鳴圏-resonance-sphere-と集合意識': 'resonance-sphere',
+                                        '社会コミュニティと共鳴クラスタ': 'resonance-cluster',
+                                    };
+
+                                    const finalId = slugMap[id] || id;
+
                                     return (
-                                        <h3 className="text-xl md:text-2xl font-bold text-[#1f5f7c] mt-10 mb-5" {...props}>
-                                            {processedChildren}
+                                        <h3 id={finalId} className="text-xl md:text-2xl font-bold text-[#1f5f7c] mt-10 mb-5" {...props}>
+                                            {processedText}
                                         </h3>
                                     );
                                 },
@@ -496,8 +530,8 @@ export const WikiPage = () => {
                                     return (
                                         <a
                                             className={`${isInternal
-                                                    ? 'text-[#58b2d4] hover:text-[#4da8cb] font-semibold decoration-[#9fd5e5] decoration-2 underline-offset-4 underline'
-                                                    : 'text-[#ff9d79] hover:text-[#eb8b66] underline'
+                                                ? 'text-[#58b2d4] hover:text-[#4da8cb] font-semibold decoration-[#9fd5e5] decoration-2 underline-offset-4 underline'
+                                                : 'text-[#ff9d79] hover:text-[#eb8b66] underline'
                                                 } transition-colors pointer-events-auto`}
                                             {...props}
                                         />
