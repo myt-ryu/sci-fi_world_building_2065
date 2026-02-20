@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { timeline } from '../data/world/timeline';
 import { locations } from '../data/world/locations';
@@ -9,30 +10,62 @@ import { PublicPageLayout } from '../components/layouts/PublicPageLayout';
 
 export const Home = () => {
     const { language, t } = useLanguage();
-    const now = new Date();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const systemOnlineDate = `2065.${month}.${day}`;
 
     return (
         <PublicPageLayout>
             {/* Hero Section */}
             <header className="relative overflow-hidden border-b border-[#b9e5ef]">
+                {/* Ambient blurs */}
                 <div className="absolute -top-24 left-1/4 w-[460px] h-[460px] bg-[#9fe9de]/40 blur-[140px] rounded-full pointer-events-none"></div>
                 <div className="absolute -bottom-32 right-0 w-[500px] h-[500px] bg-[#8ad9ef]/35 blur-[160px] rounded-full pointer-events-none"></div>
 
+                {/* Floating particles — 30個、5段×6列でヒーロー全体に均等配置 */}
+                {/* 上段 */}
+                <div className="particle absolute top-8   left-[3%]   w-2.5 h-2.5 rounded-full bg-[#57afd2]/60" style={{ '--duration': '7s', '--delay': '0s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-12  left-[20%]  w-3   h-3   rounded-full bg-[#ff9d79]/50" style={{ '--duration': '9s', '--delay': '0.4s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-6   left-[36%]  w-2   h-2   rounded-full bg-[#9fe9de]/55" style={{ '--duration': '6s', '--delay': '1.2s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-16  left-[52%]  w-3.5 h-3.5 rounded-full bg-[#57afd2]/45" style={{ '--duration': '8s', '--delay': '0.7s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-10  left-[68%]  w-2   h-2   rounded-full bg-[#ff9d79]/55" style={{ '--duration': '5s', '--delay': '2s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-20  left-[85%]  w-3   h-3   rounded-full bg-[#9fe9de]/60" style={{ '--duration': '10s', '--delay': '0.2s' } as React.CSSProperties}></div>
+                {/* 上中段 */}
+                <div className="particle absolute top-32  left-[8%]   w-3   h-3   rounded-full bg-[#ff9d79]/45" style={{ '--duration': '8s', '--delay': '1.5s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-40  left-[25%]  w-2   h-2   rounded-full bg-[#57afd2]/55" style={{ '--duration': '6s', '--delay': '3s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-36  left-[42%]  w-4   h-4   rounded-full bg-[#9fe9de]/40" style={{ '--duration': '9s', '--delay': '0.9s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-44  left-[58%]  w-2.5 h-2.5 rounded-full bg-[#ff9d79]/50" style={{ '--duration': '7s', '--delay': '2.5s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-32  left-[74%]  w-2   h-2   rounded-full bg-[#57afd2]/60" style={{ '--duration': '11s', '--delay': '0.5s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-40  left-[91%]  w-3   h-3   rounded-full bg-[#9fe9de]/50" style={{ '--duration': '6s', '--delay': '1.8s' } as React.CSSProperties}></div>
+                {/* 中段 */}
+                <div className="particle absolute top-56  left-[2%]   w-2   h-2   rounded-full bg-[#9fe9de]/55" style={{ '--duration': '8s', '--delay': '3.5s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-60  left-[18%]  w-3.5 h-3.5 rounded-full bg-[#57afd2]/45" style={{ '--duration': '7s', '--delay': '1s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-52  left-[34%]  w-2.5 h-2.5 rounded-full bg-[#ff9d79]/55" style={{ '--duration': '5s', '--delay': '2.2s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-64  left-[50%]  w-2   h-2   rounded-full bg-[#9fe9de]/60" style={{ '--duration': '9s', '--delay': '0.3s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-56  left-[66%]  w-3   h-3   rounded-full bg-[#57afd2]/50" style={{ '--duration': '6s', '--delay': '4s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-60  left-[82%]  w-2   h-2   rounded-full bg-[#ff9d79]/45" style={{ '--duration': '10s', '--delay': '1.3s' } as React.CSSProperties}></div>
+                {/* 下中段 */}
+                <div className="particle absolute top-72  left-[6%]   w-3   h-3   rounded-full bg-[#ff9d79]/50" style={{ '--duration': '7s', '--delay': '0.6s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-80  left-[22%]  w-2   h-2   rounded-full bg-[#9fe9de]/55" style={{ '--duration': '8s', '--delay': '2.8s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-76  left-[38%]  w-3.5 h-3.5 rounded-full bg-[#57afd2]/40" style={{ '--duration': '6s', '--delay': '1.6s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-72  left-[55%]  w-2.5 h-2.5 rounded-full bg-[#ff9d79]/55" style={{ '--duration': '9s', '--delay': '0.8s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-80  left-[71%]  w-2   h-2   rounded-full bg-[#9fe9de]/60" style={{ '--duration': '7s', '--delay': '3.2s' } as React.CSSProperties}></div>
+                <div className="particle absolute top-76  left-[88%]  w-3   h-3   rounded-full bg-[#57afd2]/50" style={{ '--duration': '5s', '--delay': '1.1s' } as React.CSSProperties}></div>
+                {/* 下段 */}
+                <div className="particle absolute bottom-24 left-[4%]  w-2.5 h-2.5 rounded-full bg-[#9fe9de]/55" style={{ '--duration': '8s', '--delay': '2s' } as React.CSSProperties}></div>
+                <div className="particle absolute bottom-16 left-[21%] w-3   h-3   rounded-full bg-[#57afd2]/50" style={{ '--duration': '6s', '--delay': '0.4s' } as React.CSSProperties}></div>
+                <div className="particle absolute bottom-28 left-[43%] w-2   h-2   rounded-full bg-[#ff9d79]/60" style={{ '--duration': '9s', '--delay': '3.8s' } as React.CSSProperties}></div>
+                <div className="particle absolute bottom-20 left-[62%] w-3.5 h-3.5 rounded-full bg-[#9fe9de]/45" style={{ '--duration': '7s', '--delay': '1.4s' } as React.CSSProperties}></div>
+                <div className="particle absolute bottom-32 left-[79%] w-2   h-2   rounded-full bg-[#57afd2]/55" style={{ '--duration': '10s', '--delay': '0.9s' } as React.CSSProperties}></div>
+                <div className="particle absolute bottom-16 left-[93%] w-3   h-3   rounded-full bg-[#ff9d79]/45" style={{ '--duration': '6s', '--delay': '2.6s' } as React.CSSProperties}></div>
+
                 <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-16 md:py-24">
                     <div className="text-center mb-10">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 border border-[#a6ddea] text-[#3d7e95] text-sm mb-8">
-                            <span className="w-2 h-2 rounded-full bg-[#6dc6dd] animate-pulse"></span>
-                            {t(`システムオンライン: ${systemOnlineDate}`, `System Online: ${systemOnlineDate}`)}
-                        </div>
-
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#57afd2] to-[#ff9d79] mb-6">
+                        <h1
+                            className="glitch text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#57afd2] to-[#ff9d79] mb-6"
+                            data-text={t('2065年のSci-Fi世界設定', 'Sci-Fi World Settings for 2065')}
+                        >
                             {t('2065年のSci-Fi世界設定', 'Sci-Fi World Settings for 2065')}
                         </h1>
 
-                        <p className="text-lg md:text-xl text-[#4d7f92] max-w-3xl mx-auto mb-10 leading-relaxed">
+                        <p className="typewriter text-lg md:text-xl text-[#4d7f92] max-w-3xl mx-auto mb-10 leading-relaxed inline-block">
                             {t(
                                 '2065年、パーソナル・リアリティが交差する多層現実（Layered Realities）の社会',
                                 'In 2065, a layered-reality society where personal realities intersect.',
@@ -49,11 +82,17 @@ export const Home = () => {
                                 </span>
                                 <div className="absolute inset-0 bg-gradient-to-r from-[#53aed0] to-[#ff9f7a] opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             </Link>
-                            <Link to="/about" className="px-8 py-4 bg-white/85 hover:bg-white text-[#2c647a] border border-[#a6ddea] font-bold rounded-xl transition-all shadow-[0_10px_24px_rgba(130,190,209,0.25)]">
-                                {t('Aboutを見る', 'About Project')}
+                            <Link to="/about" className="group relative px-8 py-4 bg-[#58b6d8] hover:bg-[#46a8cd] text-white font-bold rounded-xl transition-all shadow-[0_14px_36px_rgba(98,181,211,0.42)] hover:shadow-[0_20px_44px_rgba(91,172,203,0.5)] overflow-hidden">
+                                <span className="relative z-10">
+                                    {t('Aboutを見る', 'About Project')}
+                                </span>
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#53aed0] to-[#ff9f7a] opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             </Link>
-                            <Link to="/use-cases" className="px-8 py-4 bg-white/85 hover:bg-white text-[#2c647a] border border-[#a6ddea] font-bold rounded-xl transition-all shadow-[0_10px_24px_rgba(130,190,209,0.25)]">
-                                {t('活用提案を見る', 'Use Cases')}
+                            <Link to="/use-cases" className="group relative px-8 py-4 bg-[#58b6d8] hover:bg-[#46a8cd] text-white font-bold rounded-xl transition-all shadow-[0_14px_36px_rgba(98,181,211,0.42)] hover:shadow-[0_20px_44px_rgba(91,172,203,0.5)] overflow-hidden">
+                                <span className="relative z-10">
+                                    {t('活用提案を見る', 'Use Cases')}
+                                </span>
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#53aed0] to-[#ff9f7a] opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             </Link>
                         </div>
                     </div>
@@ -62,7 +101,7 @@ export const Home = () => {
                         <img
                             src={mainVisual}
                             alt={t('2065年の未来都市メインビジュアル', 'Main visual of a future city in 2065')}
-                            className="w-full h-[360px] sm:h-[460px] lg:h-[560px] object-cover object-center"
+                            className="w-full h-auto object-contain"
                             loading="eager"
                         />
                         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#f3fffe]/90 via-[#f3fffe]/30 to-transparent"></div>
@@ -72,12 +111,12 @@ export const Home = () => {
 
             {/* Top Line (World Overview) */}
             <section className="py-20 bg-[#f4fdfd]/85 border-b border-[#c4e8f1]">
-                <div className="max-w-4xl mx-auto px-6 lg:px-8">
+                <div className="max-w-5xl xl:max-w-6xl mx-auto px-6 lg:px-8">
                     <div className="text-center mb-12">
                         <h2 className="text-[#4faeca] text-3xl md:text-4xl font-bold tracking-tight mb-4">
                             {t('世界観概要', 'World Overview')}
                         </h2>
-                        <h3 className="text-lg md:text-2xl font-semibold text-[#21566f] leading-relaxed max-w-4xl mx-auto">
+                        <h3 className="text-lg md:text-2xl font-semibold text-[#21566f] leading-relaxed max-w-5xl mx-auto">
                             {language === 'ja' ? (
                                 <>
                                     <span>2065年、パーソナル・リアリティが交差する</span>
@@ -98,7 +137,7 @@ export const Home = () => {
 
             {/* Timeline Section */}
             <section className="py-24 bg-[linear-gradient(180deg,_#effbfe_0%,_#edf8f4_100%)] relative">
-                <div className="max-w-5xl mx-auto px-6 lg:px-8">
+                <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
                     <h2 className="text-3xl font-bold mb-16 text-center">
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#57afd2] to-[#ff9d79]">
                             {t('タイムライン: 2065年への道', 'Timeline: The Road to 2065')}
@@ -135,7 +174,7 @@ export const Home = () => {
             {/* Locations Grid */}
             {locations.length > 0 && (
                 <section className="py-24 bg-[#f6ffff] border-t border-[#c3e9f2]">
-                    <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                    <div className="max-w-7xl xl:max-w-[88rem] mx-auto px-6 lg:px-8">
                         <h2 className="text-3xl font-bold mb-12 text-center text-[#21566f]">
                             {t('主要ロケーション', 'Key Locations')}
                         </h2>

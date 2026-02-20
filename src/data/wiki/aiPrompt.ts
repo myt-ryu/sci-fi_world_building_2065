@@ -24,9 +24,9 @@ const topicPattern = /^【.+】$/;
 const markerPattern = /^■.+/;
 
 const defaultOptions: Required<PromptBuildOptions> = {
-    maxChunks: 8,
-    maxChunksPerArticle: 2,
-    chunkCharLimit: 650,
+    maxChunks: 4,
+    maxChunksPerArticle: 1,
+    chunkCharLimit: 350,
 };
 
 const contextChunkCache: Partial<Record<PromptLanguage, ContextChunk[]>> = {};

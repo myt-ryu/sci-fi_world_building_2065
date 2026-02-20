@@ -1,12 +1,14 @@
-import { useEffect, useMemo, useState } from 'react';
+import { isValidElement, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useParams } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { WikiLayout } from './WikiLayout';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { getArticlesByCategory } from '../../../data/wiki';
+import { SEO } from '../../common/SEO';
 import wiredGraphicImage from '../../../assets/images/world/wired-graphic-record.png';
 import wiredGraphicPdf from '../../../assets/images/world/WIREDグラレコのコピー.pdf';
+import { BmiLevelPoll } from './BmiLevelPoll';
 
 const sectionTitlePattern = /^\d+\.\s*.+/;
 const sectionMetaPattern = /^（.+）$/;
@@ -253,6 +255,19 @@ const applyInternalLinks = (markdown: string, articleTitle?: string): string => 
     return processedLines.join('\n');
 };
 
+const getNodeText = (node: ReactNode): string => {
+    if (typeof node === 'string' || typeof node === 'number') {
+        return String(node);
+    }
+    if (Array.isArray(node)) {
+        return node.map((child) => getNodeText(child)).join('');
+    }
+    if (isValidElement<{ children?: ReactNode }>(node)) {
+        return getNodeText(node.props.children);
+    }
+    return '';
+};
+
 const formatJaArticleContent = (raw: string): string => {
     const rawLines = raw
         .replace(/\u000c/g, '\n')
@@ -420,6 +435,7 @@ export const WikiPage = () => {
 
     return (
         <WikiLayout>
+            <SEO title={categoryId ? `${categoryId.charAt(0).toUpperCase()}${categoryId.slice(1)}` : 'Wiki'} />
             <div className="space-y-12">
                 {topGraphicSection}
                 {language === 'ja' && articles.length > 0 && (
@@ -471,7 +487,7 @@ export const WikiPage = () => {
                                     );
                                 },
                                 h3: ({ node, children, ...props }) => {
-                                    const rawText = Array.isArray(children) ? children.join('') : String(children || '');
+                                    const rawText = getNodeText(children);
                                     const processedText = rawText.replace(/【|】/g, '');
                                     const id = processedText
                                         .toLowerCase()
@@ -490,11 +506,20 @@ export const WikiPage = () => {
                                     };
 
                                     const finalId = slugMap[id] || id;
+                                    const normalizedHeading = processedText.normalize('NFKC');
+                                    const showBmiPollBeforeCurrentHeading =
+                                        language === 'ja' &&
+                                        categoryId === 'technology' &&
+                                        normalizedHeading.includes('AI') &&
+                                        normalizedHeading.includes('高度化');
 
                                     return (
-                                        <h3 id={finalId} className="text-xl md:text-2xl font-bold text-[#1f5f7c] mt-10 mb-5" {...props}>
-                                            {processedText}
-                                        </h3>
+                                        <>
+                                            {showBmiPollBeforeCurrentHeading && <BmiLevelPoll />}
+                                            <h3 id={finalId} className="text-xl md:text-2xl font-bold text-[#1f5f7c] mt-10 mb-5" {...props}>
+                                                {processedText}
+                                            </h3>
+                                        </>
                                     );
                                 },
                                 h4: ({ node, children, ...props }) => {

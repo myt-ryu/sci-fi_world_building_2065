@@ -1,40 +1,83 @@
+export interface RealWorldFact {
+    id: string;
+    title: {
+        ja: string;
+        en: string;
+    };
+    content: {
+        ja: string;
+        en: string;
+    };
+    links: {
+        label: string;
+        url: string;
+    }[];
+}
+
+export const realWorldFacts: RealWorldFact[] = [
+    {
+        id: 'moonshot-goal1',
+        title: {
+            ja: 'ムーンショット目標1',
+            en: 'Moonshot Goal 1'
+        },
+        content: {
+            ja: '2050年までに、人が身体、脳、空間、時間の制約から解放された社会を実現することを目標としています。サイバネティック・アバター（CA）やブレイン・マシン・インターフェース（BMI）の開発が中心となります。',
+            en: 'By 2050, realization of a society in which human beings can be free from limitations of body, brain, space, and time. Focusing on Cybernetic Avatars (CA) and Brain-Machine Interfaces (BMI).'
+        },
+        links: [
+            {
+                label: 'ムーンショット目標１（内閣府）',
+                url: 'https://www8.cao.go.jp/cstp/moonshot/sub1.html'
+            },
+            {
+                label: 'JST ムーンショット目標１',
+                url: 'https://www.jst.go.jp/moonshot/program/goal1/'
+            }
+        ]
+    },
+    {
+        id: 'kanai-project',
+        title: {
+            ja: '金井良太プロジェクト',
+            en: 'Ryota Kanai Project'
+        },
+        content: {
+            ja: 'プロジェクトマネージャー金井良太氏による「身体的能力と知覚能力の拡張による身体の制約からの解放」プロジェクト。Internet of Brains (IoB) のコンセプトを掲げ、脳とインターネットを接続する未来を模索しています。',
+            en: 'A project led by Project Manager Ryota Kanai titled "Realization of a society in which human beings can be free from limitations of body, brain, space, and time through expansion of physical and perceptual capabilities." Searching for a future where brains are connected to the internet (IoB).'
+        },
+        links: [
+            {
+                label: '金井プロジェクト公式サイト',
+                url: 'https://brains.link/'
+            }
+        ]
+    },
+    {
+        id: 'iob-original',
+        title: {
+            ja: 'Internet of Brains (IoB)',
+            en: 'Internet of Brains (IoB)'
+        },
+        content: {
+            ja: '2020年代に提唱された概念で、脳活動をデジタルデータとして扱い、インターネットを通じて他者やAI、アバターと直接接続する技術体系。2065年の「共鳴圏」の核心技術となりました。',
+            en: 'A concept proposed in the 2020s, a technological system that treats brain activity as digital data and connects directly with others, AIs, and avatars via the internet. It became the core technology for the "Resonance Sphere" in 2065.'
+        },
+        links: [
+            {
+                label: 'Internet of Brains 研究概要',
+                url: 'https://www.jst.go.jp/moonshot/program/goal1/11_kanai.html'
+            }
+        ]
+    }
+];
+
+// 圧縮版：AIプロンプト用に要点のみ抽出（トークン節約）
 export const realWorldContext = {
-    ja: `
-【現実世界の技術背景（2020年代〜2050年）】
-この世界の技術（IoB、サイバネティック・アバター）は、21世紀初頭の「ムーンショット型研究開発制度」の成果が基盤となっている。
-特に「ムーンショット目標1」が重要な役割を果たした。
-
-■ムーンショット目標1
-「2050年までに、人が身体、脳、空間、時間の制約から解放された社会を実現」
-この目標の下、金井良太氏（プロジェクトマネージャー）を中心とする「Internet of Brains (IoB)」プロジェクトなどの研究が進められた。
-
-■金井良太プロジェクト（Internet of Brains）
-主な研究テーマ：
-- 身体的能力と知覚能力の拡張による身体の制約からの解放
-- 脳と機械を接続するBMI（ブレイン・マシン・インターフェース）の大衆化
-- 複数のアバターを自在に操作する技術
-- ネットワークを介して脳同士をつなぐ通信技術
-
-このSF世界設定では、これらの研究成果が2050年に結実し、人がサイバネティック・アバター（CA）を自身の身体として自由に使いこなし、IoBによって意識や感覚を共有できる社会基盤が完成した。
-2065年の現在では、これらの技術は「当たり前のインフラ」として定着しており、当時の研究は「歴史的な転換点」として認識されている。
-    `,
-    en: `
-【Real World Historical Context (2020s - 2050)】
-The technologies of this world (IoB, Cybernetic Avatars) are based on the achievements of the "Moonshot Research and Development Program" from the early 21st century.
-"Moonshot Goal 1" played a particularly crucial role.
-
-■Moonshot Goal 1
-"Realization of a society in which human beings can be free from limitations of body, brain, space, and time by 2050."
-Under this goal, research projects such as the "Internet of Brains (IoB)" led by Project Manager Ryota Kanai were conducted.
-
-■Ryota Kanai Project (Internet of Brains)
-Main research themes:
-- Liberation from physical limitations through extension of physical and perceptual capabilities.
-- Popularization of BMI (Brain-Machine Interface) connecting brains and machines.
-- Technologies to freely control multiple avatars.
-- Communication technologies connecting brains via networks.
-
-These research outcomes came to fruition in 2050, establishing a societal infrastructure where people freely use Cybernetic Avatars (CAs) as their own bodies and share consciousness and sensations via IoB.
-In 2065, these technologies are established as "common infrastructure," and the research of that time is recognized as a "historical turning point."
-    `
+    ja: `・ムーンショット目標1：2050年までにBMI/CAで身体・脳・空間の制約から解放された社会を実現（内閣府）
+・金井良太PM：IoB（脳とインターネット接続）で知覚・身体能力を拡張するプロジェクト
+・IoB：脳活動をデジタル化し他者/AI/アバターと直接接続する技術。2065年「共鳴圏」の前身`,
+    en: `· Moonshot Goal 1 (Japan): By 2050, free humans from body/brain/space limits via BMI & Cybernetic Avatars
+· Kanai Project (PM: Ryota Kanai): IoB — connecting brains to internet to expand perception & physical ability
+· IoB: Brain activity as digital data, direct connection to others/AI/avatars. Predecessor of 2065 "Resonance Sphere"`,
 };

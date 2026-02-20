@@ -8,18 +8,19 @@ import { cultureArticles } from './articles/culture';
 import { livingArticles } from './articles/living';
 import { timelineArticles } from './articles/timeline';
 
-// Combine all articles here
-export const allWikiArticles: WikiArticle[] = [
-    ...technologyArticles,
-    ...societyArticles,
-    ...ethicsArticles,
-    ...economyArticles,
-    ...energyArticles,
-    ...cultureArticles,
-    ...livingArticles,
-    ...timelineArticles,
-];
+export const categoryMap: Record<string, WikiArticle[]> = {
+    technology: technologyArticles,
+    economy: economyArticles,
+    society: societyArticles,
+    ethics: ethicsArticles,
+    energy: energyArticles,
+    culture: cultureArticles,
+    living: livingArticles,
+    timeline: timelineArticles,
+};
 
-export const getArticlesByCategory = (categoryId: string) => {
-    return allWikiArticles.filter(article => article.categoryId === categoryId);
+export const allWikiArticles: WikiArticle[] = Object.values(categoryMap).flat();
+
+export const getArticlesByCategory = (categoryId: string): WikiArticle[] => {
+    return categoryMap[categoryId] || [];
 };

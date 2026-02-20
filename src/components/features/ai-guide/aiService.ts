@@ -11,7 +11,7 @@ export interface AIResponse {
 type Language = PromptLanguage;
 
 const LOCAL_GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY?.trim();
-const LOCAL_GEMINI_MODEL = import.meta.env.VITE_GEMINI_MODEL?.trim() || 'gemini-2.5-flash';
+const LOCAL_GEMINI_MODEL = import.meta.env.VITE_GEMINI_MODEL?.trim() || 'gemini-2.0-flash';
 const USE_LOCAL_GEMINI = import.meta.env.DEV && !!LOCAL_GEMINI_KEY && LOCAL_GEMINI_KEY !== 'your_api_key_here';
 
 const extractErrorMessage = (error: unknown): string => {
@@ -56,7 +56,7 @@ const callLocalGemini = async (
                         },
                     ],
                     generationConfig: {
-                        maxOutputTokens: 320,
+                        maxOutputTokens: 200,
                     },
                 }),
             }

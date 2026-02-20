@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sci-fi-world-building-2065.vercel.app/sitemap.xml

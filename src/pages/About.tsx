@@ -1,6 +1,7 @@
 import { useLanguage } from '../contexts/LanguageContext';
 import { SiteFooter } from '../components/common/SiteFooter';
 import { PublicPageLayout } from '../components/layouts/PublicPageLayout';
+import { SEO } from '../components/common/SEO';
 
 export const About = () => {
     const { t } = useLanguage();
@@ -12,14 +13,11 @@ export const About = () => {
                 { to: '/wiki', label: t('世界設定を見る', 'Open World Settings') },
                 { to: '/use-cases', label: t('活用提案を見る', 'Use Cases') },
             ]}
-            quickLinksContainerClassName="max-w-5xl"
+            quickLinksContainerClassName="max-w-6xl"
         >
-            <main className="flex-1 w-full max-w-5xl mx-auto px-6 lg:px-8 pt-10 pb-20 space-y-10">
+            <SEO title={t('About', 'About')} />
+            <main className="flex-1 w-full max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8 pt-10 pb-20 space-y-10">
                 <header className="text-center">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 border border-[#a6ddea] text-[#3d7e95] text-sm mb-6">
-                        <span className="w-2 h-2 rounded-full bg-[#6dc6dd] animate-pulse"></span>
-                        {t('プロジェクト情報', 'Project Information')}
-                    </div>
                     <h1 className="text-4xl md:text-5xl font-bold text-[#21566f] mb-4">
                         {t('About', 'About')}
                     </h1>

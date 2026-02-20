@@ -14,20 +14,32 @@ export const useWorldSearch = () => {
     const search = (query: string): SearchResult[] => {
         if (!query.trim()) return [];
 
-        const lowerQuery = query.toLowerCase();
-        const results: SearchResult[] = [];
+        const queryText = query.toLowerCase();
+        // 記号や助詞などを除いてキーワードを抽出
+        const keywords = queryText
+            .split(/[\s、。,.!?:;！？：；(（)）「」『』【】[\]{}<>""'`-]+/)
+            .filter(k => k.length >= 2 || (k.length === 1 && /[ぁ-んァ-ヶ一-龠]/.test(k)));
+
+        const results: (SearchResult & { score: number })[] = [];
 
         for (const article of allWikiArticles) {
             const title = language === 'ja' ? article.title.ja : article.title.en;
             const content = language === 'ja' ? article.content.ja : article.content.en;
 
-            if (title.toLowerCase().includes(lowerQuery) || content.toLowerCase().includes(lowerQuery)) {
-                // Simple relevance check: Title match is better than content match
-                // For now, just return valid results
+            const lowerTitle = title.toLowerCase();
+            const lowerContent = content.toLowerCase();
 
-                // Extract a snippet around the match
-                const matchIndex = content.toLowerCase().indexOf(lowerQuery);
-                let excerpt = content.slice(0, 100) + '...'; // Default to start
+            // いずれかのキーワードが含まれているかチェック
+            const hitKeywords = keywords.filter(k => lowerTitle.includes(k) || lowerContent.includes(k));
+
+            if (hitKeywords.length > 0) {
+                // スコアリング：キーワードの数やタイトル一致を重視
+                const score = hitKeywords.length + (lowerTitle.includes(queryText.slice(0, 5)) ? 10 : 0);
+
+                // 抜粋の作成：最初のヒットキーワードの周辺を切り出す
+                const firstHit = hitKeywords[0];
+                const matchIndex = lowerContent.indexOf(firstHit);
+                let excerpt = content.slice(0, 100) + '...';
 
                 if (matchIndex >= 0) {
                     const start = Math.max(0, matchIndex - 30);
@@ -40,11 +52,15 @@ export const useWorldSearch = () => {
                     categoryId: article.categoryId,
                     title,
                     excerpt,
+                    score,
                 });
             }
         }
 
-        return results.slice(0, 3); // Limit relative results
+        return results
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 3)
+            .map(({ score, ...rest }) => rest);
     };
 
     return { search };
