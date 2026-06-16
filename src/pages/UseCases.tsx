@@ -7,14 +7,7 @@ export const UseCases = () => {
     const { t } = useLanguage();
 
     return (
-        <PublicPageLayout
-            quickLinks={[
-                { to: '/', label: t('トップへ戻る', 'Back to Home') },
-                { to: '/wiki', label: t('世界設定を見る', 'Open World Settings') },
-                { to: '/about', label: t('Aboutを見る', 'About Project') },
-            ]}
-            quickLinksContainerClassName="max-w-7xl"
-        >
+        <PublicPageLayout>
             <SEO title={t('活用ガイド', 'Practical Guide')} />
             <main className="relative flex-1 w-full max-w-7xl xl:max-w-[88rem] mx-auto px-6 lg:px-8 pt-10 pb-20 space-y-16 overflow-hidden">
                 <div className="pointer-events-none absolute -top-20 -left-24 h-56 w-56 rounded-full bg-[#9fe9de]/35 blur-[95px]"></div>

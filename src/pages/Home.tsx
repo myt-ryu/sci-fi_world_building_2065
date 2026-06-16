@@ -73,26 +73,19 @@ export const Home = () => {
                         </p>
 
                         <div className="flex flex-wrap justify-center gap-3">
-                            <Link to="/wiki" className="group relative px-8 py-4 bg-[#58b6d8] hover:bg-[#46a8cd] text-white font-bold rounded-xl transition-all shadow-[0_14px_36px_rgba(98,181,211,0.42)] hover:shadow-[0_20px_44px_rgba(91,172,203,0.5)] overflow-hidden">
-                                <span className="relative z-10 flex items-center gap-2">
+                            <Link to="/wiki" className="group relative px-10 py-4 bg-gradient-to-r from-[#58b6d8] to-[#4dabc8] hover:from-[#46a8cd] hover:to-[#3e9dbc] text-white font-bold rounded-xl transition-all shadow-[0_14px_36px_rgba(98,181,211,0.42)] hover:shadow-[0_20px_44px_rgba(91,172,203,0.5)] hover:-translate-y-0.5 text-lg">
+                                <span className="flex items-center gap-2">
                                     {t('2065の世界へ', 'Enter the World of 2065')}
                                     <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                     </svg>
                                 </span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-[#53aed0] to-[#ff9f7a] opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             </Link>
-                            <Link to="/about" className="group relative px-8 py-4 bg-[#58b6d8] hover:bg-[#46a8cd] text-white font-bold rounded-xl transition-all shadow-[0_14px_36px_rgba(98,181,211,0.42)] hover:shadow-[0_20px_44px_rgba(91,172,203,0.5)] overflow-hidden">
-                                <span className="relative z-10">
-                                    {t('Aboutを見る', 'About Project')}
-                                </span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-[#53aed0] to-[#ff9f7a] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <Link to="/about" className="px-6 py-4 rounded-xl border border-[#a6ddea] bg-white/60 text-[#2e6b84] font-medium hover:bg-white/90 hover:border-[#72c3da] transition-all backdrop-blur-sm">
+                                {t('Aboutを見る', 'About Project')}
                             </Link>
-                            <Link to="/use-cases" className="group relative px-8 py-4 bg-[#58b6d8] hover:bg-[#46a8cd] text-white font-bold rounded-xl transition-all shadow-[0_14px_36px_rgba(98,181,211,0.42)] hover:shadow-[0_20px_44px_rgba(91,172,203,0.5)] overflow-hidden">
-                                <span className="relative z-10">
-                                    {t('活用提案を見る', 'Use Cases')}
-                                </span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-[#53aed0] to-[#ff9f7a] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <Link to="/use-cases" className="px-6 py-4 rounded-xl border border-[#a6ddea] bg-white/60 text-[#2e6b84] font-medium hover:bg-white/90 hover:border-[#72c3da] transition-all backdrop-blur-sm">
+                                {t('活用提案を見る', 'Use Cases')}
                             </Link>
                         </div>
                     </div>
@@ -129,8 +122,17 @@ export const Home = () => {
                         </h3>
                     </div>
 
-                    <div className="prose prose-slate prose-lg mx-auto leading-loose text-[#37697f] font-serif whitespace-pre-wrap">
-                        {language === 'ja' ? topLineText.ja : topLineText.en}
+                    <div className="space-y-6">
+                        {(language === 'ja' ? topLineText.ja : topLineText.en)
+                            .split('\n\n')
+                            .map((paragraph, i) => (
+                                <p
+                                    key={i}
+                                    className={`text-[#37697f] text-base md:text-lg leading-[2] ${i === 0 ? 'first-letter:text-3xl first-letter:font-bold first-letter:text-[#58b2d4] first-letter:mr-0.5' : ''}`}
+                                >
+                                    {paragraph}
+                                </p>
+                            ))}
                     </div>
                 </div>
             </section>
@@ -181,10 +183,14 @@ export const Home = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {locations.map((loc) => (
                                 <div key={loc.id} className="group relative bg-white/90 rounded-xl overflow-hidden border border-[#b7e4ee] hover:border-[#75c4dc] transition-all hover:shadow-2xl hover:shadow-[#9dd4e3]/30">
-                                    <div className="h-48 bg-[linear-gradient(140deg,_#d9f5fb,_#eafbf4)] relative overflow-hidden">
-                                        <div className="absolute inset-0 bg-gradient-to-t from-white/50 to-transparent"></div>
+                                    <div className="h-44 bg-[linear-gradient(140deg,_#d9f5fb,_#eafbf4)] relative overflow-hidden flex items-center justify-center">
+                                        <svg className="w-16 h-16 text-[#9ad8e9]/60 group-hover:text-[#72c3da]/70 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-white/60 to-transparent"></div>
                                         <div className="absolute bottom-4 left-4">
-                                            <span className="px-2 py-1 bg-[#ff9f7a]/15 border border-[#ff9f7a]/40 text-[#d87d5c] text-xs rounded-md uppercase tracking-wider">{loc.type}</span>
+                                            <span className="px-2.5 py-1 bg-[#ff9f7a]/15 border border-[#ff9f7a]/40 text-[#d87d5c] text-xs font-medium rounded-full uppercase tracking-wider">{loc.type}</span>
                                         </div>
                                     </div>
                                     <div className="p-6">
