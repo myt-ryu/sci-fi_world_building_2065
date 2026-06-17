@@ -56,33 +56,34 @@ export const About = () => {
     return (
         <PublicPageLayout>
             <SEO title={t('About', 'About')} />
-            <main className="flex-1 w-full max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8 pt-10 pb-20 space-y-10">
+            <main className="flex-1 w-full max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8 pt-12 pb-20 space-y-12">
                 <header className="text-center">
-                    <h1 className="text-4xl md:text-5xl font-bold text-[#21566f] mb-4">
+                    <p className="text-xs font-mono tracking-[0.3em] text-[#57e5ff]/50 uppercase mb-4">About This Project</p>
+                    <h1 className="text-4xl md:text-5xl font-bold text-[#e0f0f8] mb-4 neon-text">
                         {t('About', 'About')}
                     </h1>
-                    <p className="text-[#5b8395] text-lg">
+                    <p className="text-[#7aa0b0] text-lg">
                         {t('このプロジェクトの背景と構成をまとめるページです。', 'This page summarizes the background and structure of the project.')}
                     </p>
                 </header>
 
-                <section className="space-y-5">
+                <section className="space-y-4">
                     {sections.map((section, i) => (
-                        <article key={i} className="group rounded-2xl border border-[#b7e4ee] bg-white/85 p-6 shadow-[0_14px_32px_rgba(111,184,209,0.16)] transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_36px_rgba(111,184,209,0.22)]">
+                        <article key={i} className="glass-card group rounded-2xl p-6">
                             <div className="flex items-start gap-4">
-                                <div className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-[#67bfdc] to-[#7bd6ec] text-white shadow-[0_6px_14px_rgba(87,174,203,0.3)] group-hover:scale-105 transition-transform">
+                                <div className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-[#57e5ff]/20 to-[#4de8c8]/20 text-[#57e5ff] border border-[#57e5ff]/15 group-hover:border-[#57e5ff]/30 group-hover:shadow-[0_0_16px_rgba(87,229,255,0.15)] transition-all">
                                     {section.icon}
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-3 mb-2">
-                                        <span className="text-xs font-mono font-bold text-[#9ad8e9] tracking-wider">
+                                        <span className="text-xs font-mono font-bold text-[#57e5ff]/40 tracking-wider">
                                             {String(i + 1).padStart(2, '0')}
                                         </span>
-                                        <h2 className="text-xl md:text-2xl font-bold text-[#22586f]">
+                                        <h2 className="text-xl md:text-2xl font-bold text-[#e0f0f8]">
                                             {t(section.titleJa, section.titleEn)}
                                         </h2>
                                     </div>
-                                    <p className="text-[#4f7d90] leading-relaxed">
+                                    <p className="text-[#7aa0b0] leading-relaxed">
                                         {t(section.descJa, section.descEn)}
                                     </p>
                                 </div>

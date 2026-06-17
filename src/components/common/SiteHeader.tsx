@@ -22,9 +22,9 @@ export const SiteHeader = () => {
     };
 
     return (
-        <header className="sticky top-0 z-40 w-full border-b border-[#b8e4ef]/60 bg-[rgba(237,251,255,0.82)] backdrop-blur-lg">
+        <header className="sticky top-0 z-40 w-full border-b border-[#57e5ff]/10 bg-[rgba(10,26,36,0.85)] backdrop-blur-xl">
             <div className="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-6 h-14">
-                <Link to="/" className="text-lg font-bold bg-gradient-to-r from-[#58b2d4] to-[#ff9f7a] bg-clip-text text-transparent shrink-0">
+                <Link to="/" className="text-lg font-bold bg-gradient-to-r from-[#57e5ff] to-[#ff9d79] bg-clip-text text-transparent shrink-0">
                     2065 World
                 </Link>
 
@@ -33,10 +33,10 @@ export const SiteHeader = () => {
                         <Link
                             key={item.to}
                             to={item.to}
-                            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
                                 isActive(item.to)
-                                    ? 'bg-[#dcf4fb] text-[#1f5f7c]'
-                                    : 'text-[#537f92] hover:bg-[#edfaff] hover:text-[#205a73]'
+                                    ? 'bg-[#57e5ff]/10 text-[#57e5ff] shadow-[0_0_12px_rgba(87,229,255,0.15)]'
+                                    : 'text-[#8ab8c8] hover:bg-[#57e5ff]/5 hover:text-[#a0ddef]'
                             }`}
                         >
                             {language === 'ja' ? item.labelJa : item.labelEn}
@@ -53,7 +53,7 @@ export const SiteHeader = () => {
                     <LanguageToggleButton />
                     <button
                         onClick={() => setMobileOpen(!mobileOpen)}
-                        className="p-2 rounded-lg text-[#537f92] hover:bg-[#edfaff] transition-colors"
+                        className="p-2 rounded-lg text-[#8ab8c8] hover:bg-[#57e5ff]/10 transition-colors"
                         aria-label="Toggle menu"
                     >
                         {mobileOpen ? (
@@ -70,7 +70,7 @@ export const SiteHeader = () => {
             </div>
 
             {mobileOpen && (
-                <div className="md:hidden border-t border-[#b8e4ef]/40 bg-[rgba(237,251,255,0.96)] backdrop-blur-lg">
+                <div className="md:hidden border-t border-[#57e5ff]/10 bg-[rgba(10,26,36,0.95)] backdrop-blur-xl">
                     <div className="flex justify-center py-2">
                         <SystemOnlineBadge className="!text-xs" />
                     </div>
@@ -82,8 +82,8 @@ export const SiteHeader = () => {
                                 onClick={() => setMobileOpen(false)}
                                 className={`block px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                                     isActive(item.to)
-                                        ? 'bg-[#dcf4fb] text-[#1f5f7c]'
-                                        : 'text-[#537f92] hover:bg-[#edfaff] hover:text-[#205a73]'
+                                        ? 'bg-[#57e5ff]/10 text-[#57e5ff]'
+                                        : 'text-[#8ab8c8] hover:bg-[#57e5ff]/5 hover:text-[#a0ddef]'
                                 }`}
                             >
                                 {language === 'ja' ? item.labelJa : item.labelEn}

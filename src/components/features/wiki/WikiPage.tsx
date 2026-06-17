@@ -418,10 +418,10 @@ export const WikiPage = () => {
             <WikiLayout>
                 <div className="space-y-12">
                     <div className="text-center py-20">
-                        <h2 className="text-3xl font-bold text-[#22586f] mb-4">
+                        <h2 className="text-3xl font-bold text-[#e0f0f8] mb-4">
                             {language === 'ja' ? '2065年の世界設定へようこそ' : 'Welcome to the World Settings of 2065'}
                         </h2>
-                        <p className="text-[#5b8395]">
+                        <p className="text-[#7aa0b0]">
                             {language === 'ja'
                                 ? 'サイドバーからカテゴリを選ぶと、世界設定を詳しく読めます。'
                                 : 'Select a category from the sidebar to explore the world settings.'}
@@ -466,7 +466,7 @@ export const WikiPage = () => {
                 )}
                 {renderedArticles.map(({ article, content }) => (
                     <article key={article.id} className="prose prose-slate prose-lg max-w-none">
-                        <h1 className="text-3xl font-bold text-[#58b2d4] mb-6 pb-2 border-b border-[#c3e7f1]">
+                        <h1 className="text-3xl font-bold text-[#57e5ff] mb-6 pb-2 border-b border-[#57e5ff]/20">
                             {language === 'ja' ? article.title.ja : article.title.en}
                         </h1>
                         <Markdown
@@ -481,7 +481,7 @@ export const WikiPage = () => {
                                         .replace(/\s+/g, '-');
 
                                     return (
-                                        <h2 id={id} className="text-2xl font-bold text-[#1f5f7c] mt-12 mb-6 pl-4 border-l-4 border-[#58b2d4] bg-[#f0f9fc] py-2 rounded-r-lg" {...props}>
+                                        <h2 id={id} className="text-2xl font-bold text-[#e0f0f8] mt-12 mb-6 pl-4 border-l-4 border-[#57e5ff] bg-[#57e5ff]/5 py-2 rounded-r-lg" {...props}>
                                             {processedText}
                                         </h2>
                                     );
@@ -516,7 +516,7 @@ export const WikiPage = () => {
                                     return (
                                         <>
                                             {showBmiPollBeforeCurrentHeading && <BmiLevelPoll />}
-                                            <h3 id={finalId} className="text-xl md:text-2xl font-bold text-[#1f5f7c] mt-10 mb-5" {...props}>
+                                            <h3 id={finalId} className="text-xl md:text-2xl font-bold text-[#c8e6f0] mt-10 mb-5" {...props}>
                                                 {processedText}
                                             </h3>
                                         </>
@@ -530,13 +530,13 @@ export const WikiPage = () => {
                                             : children;
                                     return (
                                         <h4 className="inline-flex items-center gap-2 text-base md:text-lg font-bold text-[#245f78] mt-6 mb-3 px-3 py-1.5 rounded-full border border-[#9fd5e5] bg-[#f2fbfe]" {...props}>
-                                            <span className="w-1.5 h-1.5 rounded-full bg-[#58b2d4] shrink-0"></span>
+                                            <span className="w-1.5 h-1.5 rounded-full bg-[#57e5ff] shrink-0"></span>
                                             {processedChildren}
                                         </h4>
                                     );
                                 },
                                 h5: ({ node, ...props }) => (
-                                    <h5 className="text-sm md:text-base font-semibold text-[#4f7f93] mt-1 mb-6 pl-1" {...props} />
+                                    <h5 className="text-sm md:text-base font-semibold text-[#7aa0b0] mt-1 mb-6 pl-1" {...props} />
                                 ),
                                 p: ({ node, ...props }) => (
                                     <p className="text-[#2c5264] leading-loose mb-6 text-lg" {...props} />

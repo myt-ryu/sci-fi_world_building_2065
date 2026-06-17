@@ -25,11 +25,10 @@ export const SystemOnlineBadge = ({ className = '' }: SystemOnlineBadgeProps) =>
     const systemOnlineDateTime = `2065.${month}.${day} ${hours}:${minutes}:${seconds}`;
 
     return (
-        <div className={`relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[#95d7e9] bg-[linear-gradient(140deg,_rgba(233,250,255,0.96)_0%,_rgba(237,255,248,0.95)_52%,_rgba(250,242,255,0.94)_100%)] px-4 py-1.5 text-xs font-mono tracking-wide text-[#245e76] shadow-[0_10px_28px_rgba(108,182,205,0.3)] backdrop-blur-md md:text-sm ${className}`.trim()}>
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,_rgba(143,223,246,0.33),_transparent_55%)]"></div>
-            <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#62c4de]/60"></span>
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#52b8d7]"></span>
+        <div className={`relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[#57e5ff]/20 bg-[rgba(10,26,36,0.7)] px-4 py-1.5 text-xs font-mono tracking-wide text-[#57e5ff]/80 shadow-[0_0_20px_rgba(87,229,255,0.08)] backdrop-blur-md md:text-sm ${className}`.trim()}>
+            <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#4de8c8]/60"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4de8c8]"></span>
             </span>
             <span className="relative">
                 {t(`システムオンライン: ${systemOnlineDateTime}`, `System Online: ${systemOnlineDateTime}`)}

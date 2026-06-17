@@ -14,66 +14,55 @@ export const Home = () => {
     return (
         <PublicPageLayout>
             {/* Hero Section */}
-            <header className="relative overflow-hidden border-b border-[#b9e5ef]">
+            <header className="scanline relative overflow-hidden">
                 {/* Ambient blurs */}
-                <div className="absolute -top-24 left-1/4 w-[460px] h-[460px] bg-[#9fe9de]/40 blur-[140px] rounded-full pointer-events-none"></div>
-                <div className="absolute -bottom-32 right-0 w-[500px] h-[500px] bg-[#8ad9ef]/35 blur-[160px] rounded-full pointer-events-none"></div>
+                <div className="absolute -top-32 left-1/4 w-[500px] h-[500px] bg-[#57e5ff]/8 blur-[180px] rounded-full pointer-events-none"></div>
+                <div className="absolute -bottom-40 right-0 w-[600px] h-[600px] bg-[#ff9d79]/6 blur-[200px] rounded-full pointer-events-none"></div>
+                <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-[#4de8c8]/5 blur-[160px] rounded-full pointer-events-none"></div>
 
-                {/* Floating particles — 30個、5段×6列でヒーロー全体に均等配置 */}
-                {/* 上段 */}
-                <div className="particle absolute top-8   left-[3%]   w-2.5 h-2.5 rounded-full bg-[#57afd2]/60" style={{ '--duration': '7s', '--delay': '0s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-12  left-[20%]  w-3   h-3   rounded-full bg-[#ff9d79]/50" style={{ '--duration': '9s', '--delay': '0.4s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-6   left-[36%]  w-2   h-2   rounded-full bg-[#9fe9de]/55" style={{ '--duration': '6s', '--delay': '1.2s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-16  left-[52%]  w-3.5 h-3.5 rounded-full bg-[#57afd2]/45" style={{ '--duration': '8s', '--delay': '0.7s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-10  left-[68%]  w-2   h-2   rounded-full bg-[#ff9d79]/55" style={{ '--duration': '5s', '--delay': '2s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-20  left-[85%]  w-3   h-3   rounded-full bg-[#9fe9de]/60" style={{ '--duration': '10s', '--delay': '0.2s' } as React.CSSProperties}></div>
-                {/* 上中段 */}
-                <div className="particle absolute top-32  left-[8%]   w-3   h-3   rounded-full bg-[#ff9d79]/45" style={{ '--duration': '8s', '--delay': '1.5s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-40  left-[25%]  w-2   h-2   rounded-full bg-[#57afd2]/55" style={{ '--duration': '6s', '--delay': '3s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-36  left-[42%]  w-4   h-4   rounded-full bg-[#9fe9de]/40" style={{ '--duration': '9s', '--delay': '0.9s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-44  left-[58%]  w-2.5 h-2.5 rounded-full bg-[#ff9d79]/50" style={{ '--duration': '7s', '--delay': '2.5s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-32  left-[74%]  w-2   h-2   rounded-full bg-[#57afd2]/60" style={{ '--duration': '11s', '--delay': '0.5s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-40  left-[91%]  w-3   h-3   rounded-full bg-[#9fe9de]/50" style={{ '--duration': '6s', '--delay': '1.8s' } as React.CSSProperties}></div>
-                {/* 中段 */}
-                <div className="particle absolute top-56  left-[2%]   w-2   h-2   rounded-full bg-[#9fe9de]/55" style={{ '--duration': '8s', '--delay': '3.5s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-60  left-[18%]  w-3.5 h-3.5 rounded-full bg-[#57afd2]/45" style={{ '--duration': '7s', '--delay': '1s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-52  left-[34%]  w-2.5 h-2.5 rounded-full bg-[#ff9d79]/55" style={{ '--duration': '5s', '--delay': '2.2s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-64  left-[50%]  w-2   h-2   rounded-full bg-[#9fe9de]/60" style={{ '--duration': '9s', '--delay': '0.3s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-56  left-[66%]  w-3   h-3   rounded-full bg-[#57afd2]/50" style={{ '--duration': '6s', '--delay': '4s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-60  left-[82%]  w-2   h-2   rounded-full bg-[#ff9d79]/45" style={{ '--duration': '10s', '--delay': '1.3s' } as React.CSSProperties}></div>
-                {/* 下中段 */}
-                <div className="particle absolute top-72  left-[6%]   w-3   h-3   rounded-full bg-[#ff9d79]/50" style={{ '--duration': '7s', '--delay': '0.6s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-80  left-[22%]  w-2   h-2   rounded-full bg-[#9fe9de]/55" style={{ '--duration': '8s', '--delay': '2.8s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-76  left-[38%]  w-3.5 h-3.5 rounded-full bg-[#57afd2]/40" style={{ '--duration': '6s', '--delay': '1.6s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-72  left-[55%]  w-2.5 h-2.5 rounded-full bg-[#ff9d79]/55" style={{ '--duration': '9s', '--delay': '0.8s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-80  left-[71%]  w-2   h-2   rounded-full bg-[#9fe9de]/60" style={{ '--duration': '7s', '--delay': '3.2s' } as React.CSSProperties}></div>
-                <div className="particle absolute top-76  left-[88%]  w-3   h-3   rounded-full bg-[#57afd2]/50" style={{ '--duration': '5s', '--delay': '1.1s' } as React.CSSProperties}></div>
-                {/* 下段 */}
-                <div className="particle absolute bottom-24 left-[4%]  w-2.5 h-2.5 rounded-full bg-[#9fe9de]/55" style={{ '--duration': '8s', '--delay': '2s' } as React.CSSProperties}></div>
-                <div className="particle absolute bottom-16 left-[21%] w-3   h-3   rounded-full bg-[#57afd2]/50" style={{ '--duration': '6s', '--delay': '0.4s' } as React.CSSProperties}></div>
-                <div className="particle absolute bottom-28 left-[43%] w-2   h-2   rounded-full bg-[#ff9d79]/60" style={{ '--duration': '9s', '--delay': '3.8s' } as React.CSSProperties}></div>
-                <div className="particle absolute bottom-20 left-[62%] w-3.5 h-3.5 rounded-full bg-[#9fe9de]/45" style={{ '--duration': '7s', '--delay': '1.4s' } as React.CSSProperties}></div>
-                <div className="particle absolute bottom-32 left-[79%] w-2   h-2   rounded-full bg-[#57afd2]/55" style={{ '--duration': '10s', '--delay': '0.9s' } as React.CSSProperties}></div>
-                <div className="particle absolute bottom-16 left-[93%] w-3   h-3   rounded-full bg-[#ff9d79]/45" style={{ '--duration': '6s', '--delay': '2.6s' } as React.CSSProperties}></div>
+                {/* Floating particles */}
+                {[
+                    { top: '8%', left: '3%', size: 'w-2 h-2', color: 'bg-[#57e5ff]/40', dur: '7s', del: '0s' },
+                    { top: '12%', left: '20%', size: 'w-2.5 h-2.5', color: 'bg-[#ff9d79]/35', dur: '9s', del: '0.4s' },
+                    { top: '6%', left: '50%', size: 'w-1.5 h-1.5', color: 'bg-[#4de8c8]/45', dur: '6s', del: '1.2s' },
+                    { top: '16%', left: '70%', size: 'w-3 h-3', color: 'bg-[#57e5ff]/30', dur: '8s', del: '0.7s' },
+                    { top: '20%', left: '85%', size: 'w-2 h-2', color: 'bg-[#ff9d79]/30', dur: '10s', del: '0.2s' },
+                    { top: '35%', left: '8%', size: 'w-2.5 h-2.5', color: 'bg-[#4de8c8]/35', dur: '8s', del: '1.5s' },
+                    { top: '40%', left: '42%', size: 'w-3 h-3', color: 'bg-[#57e5ff]/25', dur: '9s', del: '0.9s' },
+                    { top: '45%', left: '91%', size: 'w-2 h-2', color: 'bg-[#ff9d79]/35', dur: '6s', del: '1.8s' },
+                    { top: '60%', left: '18%', size: 'w-3 h-3', color: 'bg-[#57e5ff]/30', dur: '7s', del: '1s' },
+                    { top: '65%', left: '66%', size: 'w-2 h-2', color: 'bg-[#4de8c8]/40', dur: '6s', del: '4s' },
+                    { top: '80%', left: '38%', size: 'w-2.5 h-2.5', color: 'bg-[#57e5ff]/30', dur: '6s', del: '1.6s' },
+                    { top: '85%', left: '79%', size: 'w-1.5 h-1.5', color: 'bg-[#ff9d79]/40', dur: '10s', del: '0.9s' },
+                ].map((p, i) => (
+                    <div
+                        key={i}
+                        className={`particle absolute ${p.size} rounded-full ${p.color}`}
+                        style={{ top: p.top, left: p.left, '--duration': p.dur, '--delay': p.del } as React.CSSProperties}
+                    />
+                ))}
 
-                <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-16 md:py-24">
-                    <div className="text-center mb-10">
+                <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-20 md:py-32">
+                    <div className="text-center mb-12">
+                        <p className="text-xs font-mono tracking-[0.3em] text-[#57e5ff]/50 uppercase mb-6">
+                            Sci-Fi World Building Project
+                        </p>
                         <h1
-                            className="glitch text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#57afd2] to-[#ff9d79] mb-6"
+                            className="glitch text-4xl md:text-6xl lg:text-8xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#57e5ff] via-[#a0f0ff] to-[#ff9d79] mb-8 neon-text"
                             data-text={t('2065年のSci-Fi世界設定', 'Sci-Fi World Settings for 2065')}
                         >
                             {t('2065年のSci-Fi世界設定', 'Sci-Fi World Settings for 2065')}
                         </h1>
 
-                        <p className="typewriter text-lg md:text-xl text-[#4d7f92] max-w-3xl mx-auto mb-10 leading-relaxed inline-block">
+                        <p className="typewriter text-base md:text-xl text-[#8ab8c8] max-w-3xl mx-auto mb-12 leading-relaxed inline-block">
                             {t(
                                 '2065年、パーソナル・リアリティが交差する多層現実（Layered Realities）の社会',
                                 'In 2065, a layered-reality society where personal realities intersect.',
                             )}
                         </p>
 
-                        <div className="flex flex-wrap justify-center gap-3">
-                            <Link to="/wiki" className="group relative px-10 py-4 bg-gradient-to-r from-[#58b6d8] to-[#4dabc8] hover:from-[#46a8cd] hover:to-[#3e9dbc] text-white font-bold rounded-xl transition-all shadow-[0_14px_36px_rgba(98,181,211,0.42)] hover:shadow-[0_20px_44px_rgba(91,172,203,0.5)] hover:-translate-y-0.5 text-lg">
+                        <div className="flex flex-wrap justify-center gap-4">
+                            <Link to="/wiki" className="group relative px-10 py-4 bg-gradient-to-r from-[#57e5ff]/90 to-[#4de8c8]/90 text-[#0a1a24] font-bold rounded-xl transition-all shadow-[0_0_30px_rgba(87,229,255,0.3)] hover:shadow-[0_0_50px_rgba(87,229,255,0.5)] hover:-translate-y-1 text-lg">
                                 <span className="flex items-center gap-2">
                                     {t('2065の世界へ', 'Enter the World of 2065')}
                                     <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -81,35 +70,37 @@ export const Home = () => {
                                     </svg>
                                 </span>
                             </Link>
-                            <Link to="/about" className="px-6 py-4 rounded-xl border border-[#a6ddea] bg-white/60 text-[#2e6b84] font-medium hover:bg-white/90 hover:border-[#72c3da] transition-all backdrop-blur-sm">
+                            <Link to="/about" className="glass-card px-6 py-4 rounded-xl text-[#8ab8c8] font-medium hover:text-[#57e5ff]">
                                 {t('Aboutを見る', 'About Project')}
                             </Link>
-                            <Link to="/use-cases" className="px-6 py-4 rounded-xl border border-[#a6ddea] bg-white/60 text-[#2e6b84] font-medium hover:bg-white/90 hover:border-[#72c3da] transition-all backdrop-blur-sm">
+                            <Link to="/use-cases" className="glass-card px-6 py-4 rounded-xl text-[#8ab8c8] font-medium hover:text-[#57e5ff]">
                                 {t('活用提案を見る', 'Use Cases')}
                             </Link>
                         </div>
                     </div>
 
-                    <div className="relative rounded-[2rem] overflow-hidden border border-[#9fd9e8] bg-[#e9fbff] shadow-[0_25px_80px_rgba(111,194,219,0.35)]">
+                    <div className="relative rounded-2xl overflow-hidden border border-[#57e5ff]/15 shadow-[0_0_60px_rgba(87,229,255,0.1)]">
                         <img
                             src={mainVisual}
                             alt={t('2065年の未来都市メインビジュアル', 'Main visual of a future city in 2065')}
                             className="w-full h-auto object-contain"
                             loading="eager"
                         />
-                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#f3fffe]/90 via-[#f3fffe]/30 to-transparent"></div>
+                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0a1a24] via-[#0a1a24]/60 to-transparent"></div>
+                        <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#0a1a24]/40 to-transparent"></div>
                     </div>
                 </div>
             </header>
 
             {/* Top Line (World Overview) */}
-            <section className="py-20 bg-[#f4fdfd]/85 border-b border-[#c4e8f1]">
-                <div className="max-w-5xl xl:max-w-6xl mx-auto px-6 lg:px-8">
-                    <div className="text-center mb-12">
-                        <h2 className="text-[#4faeca] text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            <section className="relative py-24 border-t border-[#57e5ff]/10">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0a1a24] via-[#0d2030] to-[#0a1a24]"></div>
+                <div className="relative max-w-5xl xl:max-w-6xl mx-auto px-6 lg:px-8">
+                    <div className="text-center mb-14">
+                        <h2 className="text-[#57e5ff] text-3xl md:text-4xl font-bold tracking-tight mb-4 neon-text">
                             {t('世界観概要', 'World Overview')}
                         </h2>
-                        <h3 className="text-lg md:text-2xl font-semibold text-[#21566f] leading-relaxed max-w-5xl mx-auto">
+                        <h3 className="text-lg md:text-2xl font-semibold text-[#a0d0e0] leading-relaxed max-w-5xl mx-auto">
                             {language === 'ja' ? (
                                 <>
                                     <span>2065年、パーソナル・リアリティが交差する</span>
@@ -128,7 +119,7 @@ export const Home = () => {
                             .map((paragraph, i) => (
                                 <p
                                     key={i}
-                                    className={`text-[#37697f] text-base md:text-lg leading-[2] ${i === 0 ? 'first-letter:text-3xl first-letter:font-bold first-letter:text-[#58b2d4] first-letter:mr-0.5' : ''}`}
+                                    className={`text-[#8ab8c8] text-base md:text-lg leading-[2] ${i === 0 ? 'first-letter:text-3xl first-letter:font-bold first-letter:text-[#57e5ff] first-letter:mr-0.5' : ''}`}
                                 >
                                     {paragraph}
                                 </p>
@@ -138,32 +129,30 @@ export const Home = () => {
             </section>
 
             {/* Timeline Section */}
-            <section className="py-24 bg-[linear-gradient(180deg,_#effbfe_0%,_#edf8f4_100%)] relative">
-                <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
-                    <h2 className="text-3xl font-bold mb-16 text-center">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#57afd2] to-[#ff9d79]">
+            <section className="relative py-28 border-t border-[#57e5ff]/10">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0a1a24] via-[#081620] to-[#0a1a24]"></div>
+                <div className="relative max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-20 text-center">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#57e5ff] to-[#ff9d79] neon-text">
                             {t('タイムライン: 2065年への道', 'Timeline: The Road to 2065')}
                         </span>
                     </h2>
 
-                    <div className="relative space-y-12 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-[#8dc9dc] before:to-transparent">
+                    <div className="relative space-y-12 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-px before:bg-gradient-to-b before:from-transparent before:via-[#57e5ff]/30 before:to-transparent">
                         {timeline.map((event, index) => (
                             <div key={index} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-
-                                {/* Icon */}
-                                <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#edf8f4] bg-[#79c2da] group-hover:bg-[#ffae8b] transition-colors shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 shadow-[0_12px_24px_rgba(96,169,196,0.25)]">
-                                    <div className="w-2.5 h-2.5 rounded-full bg-white group-hover:bg-[#20586f] animate-pulse"></div>
+                                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-[#57e5ff]/30 bg-[#0a1a24] group-hover:border-[#ff9d79]/50 transition-all shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 shadow-[0_0_20px_rgba(87,229,255,0.15)] group-hover:shadow-[0_0_24px_rgba(255,157,121,0.2)]"
+                                    style={{ animation: 'pulse-glow 3s ease-in-out infinite', animationDelay: `${index * 0.3}s` }}
+                                >
+                                    <div className="w-2.5 h-2.5 rounded-full bg-[#57e5ff] group-hover:bg-[#ff9d79] transition-colors"></div>
                                 </div>
 
-                                {/* Content */}
-                                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 bg-white/90 border border-[#b7e3ee] rounded-xl hover:border-[#72c3da] transition-colors shadow-[0_12px_30px_rgba(113,184,209,0.18)]">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <span className="text-2xl font-mono font-bold text-[#55b2d4]">{event.year}</span>
-                                    </div>
-                                    <h3 className="text-xl font-bold text-[#22586f] mb-2">
+                                <div className="glass-card w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-xl">
+                                    <span className="text-2xl font-mono font-bold text-[#57e5ff] mb-2 block">{event.year}</span>
+                                    <h3 className="text-xl font-bold text-[#e0f0f8] mb-2">
                                         {language === 'ja' ? event.title.ja : event.title.en}
                                     </h3>
-                                    <p className="text-[#4f7d90] text-sm leading-relaxed">
+                                    <p className="text-[#7aa0b0] text-sm leading-relaxed">
                                         {language === 'ja' ? event.description.ja : event.description.en}
                                     </p>
                                 </div>
@@ -175,33 +164,33 @@ export const Home = () => {
 
             {/* Locations Grid */}
             {locations.length > 0 && (
-                <section className="py-24 bg-[#f6ffff] border-t border-[#c3e9f2]">
-                    <div className="max-w-7xl xl:max-w-[88rem] mx-auto px-6 lg:px-8">
-                        <h2 className="text-3xl font-bold mb-12 text-center text-[#21566f]">
+                <section className="relative py-28 border-t border-[#57e5ff]/10">
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#0a1a24] via-[#0d2030] to-[#0a1a24]"></div>
+                    <div className="relative max-w-7xl xl:max-w-[88rem] mx-auto px-6 lg:px-8">
+                        <h2 className="text-3xl md:text-4xl font-bold mb-14 text-center text-[#e0f0f8] neon-text">
                             {t('主要ロケーション', 'Key Locations')}
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {locations.map((loc) => (
-                                <div key={loc.id} className="group relative bg-white/90 rounded-xl overflow-hidden border border-[#b7e4ee] hover:border-[#75c4dc] transition-all hover:shadow-2xl hover:shadow-[#9dd4e3]/30">
-                                    <div className="h-44 bg-[linear-gradient(140deg,_#d9f5fb,_#eafbf4)] relative overflow-hidden flex items-center justify-center">
-                                        <svg className="w-16 h-16 text-[#9ad8e9]/60 group-hover:text-[#72c3da]/70 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+                                <div key={loc.id} className="glass-card group rounded-xl overflow-hidden">
+                                    <div className="h-40 bg-gradient-to-br from-[#57e5ff]/8 to-[#4de8c8]/5 relative overflow-hidden flex items-center justify-center">
+                                        <svg className="w-14 h-14 text-[#57e5ff]/20 group-hover:text-[#57e5ff]/40 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
-                                        <div className="absolute inset-0 bg-gradient-to-t from-white/60 to-transparent"></div>
-                                        <div className="absolute bottom-4 left-4">
-                                            <span className="px-2.5 py-1 bg-[#ff9f7a]/15 border border-[#ff9f7a]/40 text-[#d87d5c] text-xs font-medium rounded-full uppercase tracking-wider">{loc.type}</span>
+                                        <div className="absolute bottom-3 left-4">
+                                            <span className="px-2.5 py-1 bg-[#ff9d79]/10 border border-[#ff9d79]/25 text-[#ff9d79] text-xs font-mono rounded-full uppercase tracking-wider">{loc.type}</span>
                                         </div>
                                     </div>
-                                    <div className="p-6">
-                                        <h3 className="text-xl font-bold text-[#22586f] mb-2 group-hover:text-[#4faecf] transition-colors">
+                                    <div className="p-5">
+                                        <h3 className="text-lg font-bold text-[#e0f0f8] mb-1.5 group-hover:text-[#57e5ff] transition-colors">
                                             {language === 'ja' ? loc.name.ja : loc.name.en}
                                         </h3>
-                                        <div className="flex items-center gap-2 text-sm text-[#6f94a5] mb-4">
-                                            <span className="text-xs">{t('人口:', 'Population:')}</span>
+                                        <div className="flex items-center gap-2 text-xs text-[#5a8a9a] font-mono mb-3">
+                                            <span>{t('人口:', 'Pop:')}</span>
                                             {loc.population}
                                         </div>
-                                        <p className="text-[#4f7d90] text-sm line-clamp-3">
+                                        <p className="text-[#7aa0b0] text-sm line-clamp-3 leading-relaxed">
                                             {language === 'ja' ? loc.description.ja : loc.description.en}
                                         </p>
                                     </div>

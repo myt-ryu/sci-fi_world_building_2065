@@ -6,15 +6,12 @@ interface PublicPageLayoutProps {
     className?: string;
 }
 
-const baseClassName =
-    'min-h-screen flex flex-col bg-[radial-gradient(circle_at_top,_#d9f5fc_0%,_#f3feff_42%,_#edf9f5_100%)] text-[#1f4f65] selection:bg-[#ffd1b4]/70';
-
 export const PublicPageLayout = ({
     children,
     className = '',
 }: PublicPageLayoutProps) => {
     return (
-        <div className={`${baseClassName} ${className}`.trim()}>
+        <div className={`min-h-screen flex flex-col bg-[#0a1a24] text-[#c8e6f0] selection:bg-[#57e5ff]/30 grid-pattern ${className}`.trim()}>
             <SiteHeader />
             {children}
         </div>
